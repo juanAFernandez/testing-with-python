@@ -1,2 +1,8 @@
 # testing-with-python
-Repo to examples and slides of the Testing with Python presentation.
+Branch to slides.
+
+
+
+**Requirements:**
+
+Execute `bower install` to download dependencies in `gh-pages` branch.

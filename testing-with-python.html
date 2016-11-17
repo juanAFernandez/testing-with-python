@@ -1,0 +1,866 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Testing with python</title>
+
+    <meta name="Testing with Python">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="vendor/reveal-js/css/reveal.css">
+    <link rel="stylesheet" href="vendor/reveal-js/css/theme/blood.css" id="theme">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <script src="vendor/reveal-js/lib/js/head.min.js"></script>
+    <script src="vendor/reveal-js/js/reveal.js"></script>
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="vendor/reveal/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'reveal/css/print/pdf.css' : 'reveal/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <style>
+        .spinner {
+            margin: 100px auto;
+            width: 40px;
+            height: 40px;
+            position: relative;
+        }
+
+        .cube1, .cube2 {
+            background-color: #333;
+            width: 15px;
+            height: 15px;
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            -webkit-animation: sk-cubemove 1.8s infinite ease-in-out;
+            animation: sk-cubemove 1.8s infinite ease-in-out;
+        }
+
+        .cube2 {
+            -webkit-animation-delay: -0.9s;
+            animation-delay: -0.9s;
+        }
+
+        @-webkit-keyframes sk-cubemove {
+            25% {
+                -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5)
+            }
+            50% {
+                -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg)
+            }
+            75% {
+                -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5)
+            }
+            100% {
+                -webkit-transform: rotate(-360deg)
+            }
+        }
+
+        @keyframes sk-cubemove {
+            25% {
+                transform: translateX(42px) rotate(-90deg) scale(0.5);
+                -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
+            }
+            50% {
+                transform: translateX(42px) translateY(42px) rotate(-179deg);
+                -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
+            }
+            50.1% {
+                transform: translateX(42px) translateY(42px) rotate(-180deg);
+                -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
+            }
+            75% {
+                transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+                -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+            }
+            100% {
+                transform: rotate(-360deg);
+                -webkit-transform: rotate(-360deg);
+            }
+        }
+    </style>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+
+<div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+        <!-- Slide inicial -->
+
+        <section>
+            <h1>Testing</h1>
+            <h3>with</h3>
+            <h1>Python</h1>
+
+        </section>
+
+        <section>
+
+            <section>
+                <p>¿Qué es un test?</p>
+
+            </section>
+
+
+            <section>
+                <p>Un fragmento de código que comprueba automáticamente
+                    otro.</p>
+                <p class="fragment">¿Funcionalidad?</p>
+                <p class="fragment">¿Rendimiento?</p>
+                <p class="fragment">¿Estrés?</p>
+                <p class="fragment">...</p>
+            </section>
+
+
+            <section>
+                <h3>Funcionalidad</h3>
+                <p class="fragment">¿Debería ser escrito por otra persona?</p>
+                <small class="fragment">Pair Programming</small>
+                <p class="fragment">Necesario definir estrategia.</p>
+            </section>
+
+            <section>
+                <p>thinking about this... </p>
+                <img src="https://media.giphy.com/media/26BoDGStUAafwdZII/giphy.gif" width="480" height="455">
+            </section>
+
+        </section>
+
+
+        <section>
+            <h3><p><strong>T</strong>est <strong>D</strong>rive <strong>D</strong>evelopment</p></h3>
+            <p class="fragment">Desarrollo guiado por pruebas</p>
+
+            <br>
+            <p class="fragment"><strong>Kent Beck</strong></p>
+            <small class="fragment">eXtreme Programming, uno de los 17 firmantes del Manifiesto Ágil - 2011</small>
+
+            <br>
+            <br>
+            <p class="fragment">Fundamentos:</p>
+            <p class="fragment">1. Escribir los tests.</p>
+            <p class="fragment">2. Programar lo minimo para que estos tests se pasen.</p>
+            <p class="fragment">3. Repetir.</p>
+
+            <br>
+            <a class="fragment" href="http://www.onlamp.com/pub/a/python/2004/12/02/tdd_pyunit.html">Introducción a
+                TDD</a>
+
+        </section>
+
+
+        <section>
+            <p>¿Y cuándo hablamos de Python?</p>
+        </section>
+
+
+        <section> <!-- Unittest -->
+
+            <section>
+                <a href="https://docs.python.org/2/library/unittest.html"><h2>Unittest</h2></a>
+                <small class="fragment">
+                    Python unit testing framework,based on Erich Gamma's JUnit and
+                    <br>
+                    <a href="https://es.wikipedia.org/wiki/Kent_Beck"><strong>Kent Beck's </strong></a>
+                    Smalltalk testing framework.
+                </small>
+                <br>
+                <br>
+                <p class="fragment">Test <strong>unitarios</strong> clásicos.</p>
+                <p class="fragment">Se basa en la JUnit de Java.</p>
+                <p class="fragment">Incluida en la <strong>Standard Library</strong>.</p>
+            </section>
+
+
+            <section>
+            <pre>
+                <code class="hljs">
+                def stupid_function(x):
+                    return x + 1
+
+                class stupid_test(unittest.TestCase):
+                    def test(self):
+                        self.assertEqual(stupid_function(3), 4)
+
+                if __name__ == '__main__':
+                    unittest.main()
+                </code>
+            </pre>
+                <pre class="fragment">
+                <code class="hljs">
+                > python unittest_example.py -v
+                test (__main__.stupid_test) ... ok
+                -----------------------------------
+                Ran 1 test in 0.003s
+                OK
+                </code>
+            </pre>
+            </section>
+
+        </section>
+
+        <section> <!-- nose -->
+            <section>
+                <h2>nose</h2>
+                <small class="fragment"><strong>nose</strong> extends unittest to make testing easier.</small>
+                <br>
+                <br>
+                <p class="fragment">Puede ejecutar unittest y clases propias.</p>
+            </section>
+
+            <section>
+            <pre>
+                <code class="hljs">
+                def stupid_function(a, b):
+                    return a+b
+
+                def stupid_test():
+                    assert stupid_function(2,8) == 10
+                </code>
+            </pre>
+                <pre class="fragment">
+                <code class="hljs">
+                > nosetests -v nose_example.py
+                nose_example.stupid_test ... ok
+                --------------------------------
+                Ran 1 test in 0.001s
+                OK
+                </code>
+            </pre>
+            </section>
+
+
+            </section>
+
+
+            <section>
+
+                <section>
+                    <a href="http://doc.pytest.org/en/latest/"><h2>pytest</h2></a>
+                    <small class="fragment">The
+                        <strontg>pytest</strontg>
+                        framework makes it easy to write small tests, yet scales to support
+                        complex functional testing for applications and libraries.
+                    </small>
+
+                    <br>
+                    <br>
+                    <p class="fragment">Cubre la misma funcionalidad que unittest y nose.</p>
+                    <p class="fragment">Posee el mejor mecanismo para fixtures.</p>
+                    <p class="fragment">Maximiza la relación esfuerzo - resultados.</p>
+                </section>
+
+                <section>
+            <pre>
+                <code class="hljs">
+                def func(x):
+                    return x + 1
+
+                def test_answer():
+                    assert func(3) == 4
+                </code>
+            </pre>
+                    <pre class="fragment">
+                <code class="hljs">
+               > pytest pytest_example.py
+                =============== test session starts =======================
+                platform linux2 -- Python 2.7.6, pytest-3.0.3,
+                rootdir: examples, inifile:
+                plugins: cov-2.4.0
+                collected 1 items
+
+                pytest_example.py .
+
+                =============== 1 passed in 0.01 seconds ===================
+                </code>
+            </pre>
+                </section>
+
+
+
+                <section>
+            <pre>
+                <code class="hljs">
+                def func(x):
+                    return x + 1
+
+                def test_answer():
+                    assert func(3) == 5
+                </code>
+            </pre>
+                </section>
+
+                <section>
+            <pre >
+                <code class="hljs">
+                > pytest pytest_example.py
+                =================== test session starts ================
+                platform linux2 -- Python 2.7.6, pytest-3.0.3
+                rootdir: examples, inifile:
+                plugins: cov-2.4.0
+                collected 1 items
+
+                pytest_example.py F
+
+                =================== FAILURES ===========================
+                ________________________ test_answer ___________________
+                    def test_answer():
+                >       assert func(3) == 5
+                E       assert 4 == 5
+                E        +  where 4 = func(3)
+
+                pytest_example.py:5: AssertionError
+                =================== 1 failed in 0.04 seconds ============
+
+                </code>
+            </pre>
+                </section>
+
+
+            </section>
+
+            <section> <!-- Doctest -->
+
+                <section>
+
+                    <a href="http://doc.pytest.org/en/latest/"><h2>doctest</h2></a>
+                    <small class="fragment">A framework for <strong>running examples in docstrings.</strong></small>
+
+                    <br>
+                    <br>
+                    <p class="fragment">Cambio de estilo</p>
+                    <p class="fragment">“literate testing”</p>
+                    <p class="fragment">“executable documentation”</p>
+                    <p class="fragment">El código se testea en <span
+                            class="fragment highlight-blue"> tiempo de ejecución</span>.</p>
+
+                </section>
+
+
+                <section>
+            <pre>
+                <code class="hljs">
+                    def sum(a, b):
+                        """
+                        >>> sum(2, 4)
+                        6
+                        >>> sum('a', 'b')
+                        'ab'
+                        """
+                        return a+b
+
+
+                    print sum(3,4)
+                    print sum('Hi', 'bye')
+
+
+                    if __name__ == "__main__":
+                        import doctest
+                        doctest.testmod()
+                </code>
+            </pre>
+                    <pre class="fragment">
+                <code class="hljs">
+                > python docstest_example.py
+                7
+                Hibye
+
+                </code>
+            </pre>
+                </section>
+
+                <section>
+            <pre>
+                <code class="hljs">
+                    > python docstest_example.py -v
+                    7
+                    Hibye
+                    Trying:
+                        sum(2, 4)
+                    Expecting:
+                        6
+                    ok
+                    Trying:
+                        sum('a', 'b')
+                    Expecting:
+                        'ab'
+                    ok
+                    1 items had no tests:
+                        __main__
+                    1 items passed all tests:
+                       2 tests in __main__.sum
+                    2 tests in 2 items.
+                    2 passed and 0 failed.
+                    Test passed.
+
+                </code>
+            </pre>
+                </section>
+
+                <section>
+
+                <pre>
+                    <code class="hljs">
+                        ...
+                        return a+b+b
+                        ...
+                    </code>
+                </pre>
+                </section>
+                <section>
+                <pre>
+                    <code class="hljs">
+            > python docstest_example.py
+            11
+            Hibyebye
+            ****************************************************
+            File "docstest_example.py", line 3, in __main__.sum
+            Failed example:
+                sum(2, 4)
+            Expected:
+                6
+            Got:
+                10
+            *****************************************************
+            File "docstest_example.py", line 5, in __main__.sum
+            Failed example:
+                sum('a', 'b')
+            Expected:
+                'ab'
+            Got:
+                'abb'
+            *****************************************************
+            1 items had failures:
+               2 of   2 in __main__.sum
+            ***Test Failed*** 2 failures.
+
+                    </code>
+                </pre>
+                </section>
+
+                <section>
+                    Se puede intuir su uso para BDD
+                </section>
+
+            </section>
+
+            <section> <!-- BDD -->
+                <section>
+                    <h3><p><strong>B</strong>ehavior <strong>D</strong>rive <strong>D</strong>evelopment</p></h3>
+                    <br>
+                    <br>
+                    <p class="fragment">"Orientado a No Programadores."</p>
+
+                    <p class="fragment">Fue creado como respuesta a TDD por <a
+                            href="https://dannorth.net/introducing-bdd/"><strong>Dan North</strong></a>.</p>
+                    <p class="fragment">"“Behaviour” is a more useful word than “test”."</p>
+
+                    <p class="fragment">Tests pensados para ser <span class="fragment highlight-blue">leídos / comprendidos</span>.</p>
+
+
+                </section>
+
+                <section>
+                    <p>"... TDD – the resulting set of methods is an effective way of ensuring your code works.
+                        However, if the methods do not comprehensively describe the behaviour of your system,
+                        then they are lulling you into a false sense of security."
+                    <p>
+                    <p> "Naming tests that sound like sentences and stories." </p>
+
+                </section>
+
+                <section>
+                    <p><img width="700" height="600" src="img/a.png"></p>
+                </section>
+
+                <section>
+                    <p>Los tests deben ser escritos como sentencias con una sintaxis específica.</p>
+                    <p class="fragment">La idea es que los test puedan ser escritos por no programadores en las
+                        historias de
+                        usuario
+                        y que puedan ser pasados a código sin perder la expresividad ni en la escritura ni en la
+                        ejecución.</p>
+
+                    <p class="fragment">Así un de un test no se espera comprobar un resultado estricto
+                        sino un comportamiento (independientemente del nivel del test)</p>
+                </section>
+
+                <section>
+                    <p>Give me an example!</p>
+                </section>
+
+                <section>
+                    <a href="https:/github.com/nestorsalceda/mamba"><h3>MAMBA</h3></a>
+                    <p>Nestor Salceda</p>
+                    <p>
+                        <small>The definitive testing tool for Python. Born under the banner of Behavior Driven
+                            Development
+                            (BDD).
+                        </small>
+                    </p>
+                    <br>
+
+                </section>
+
+                <section>
+                    <a href="http://pythonhosted.org/behave/tutorial.html"><h3>Behave</h3></a>
+
+                    <br>
+                    <br>
+                    <p>
+                        <small>Behavior-driven development (or BDD) is an agile software development technique that
+                            encourages
+                            collaboration between developers,<strong> QA and non-technical or business participants
+                                in a software project</strong>.
+                        </small>
+                    </p>
+                </section>
+
+                <section>
+                <pre>
+                    <code>
+    Feature: Cálculo del incentivo salarial.
+
+    Para calcular la cuantía del bono salarial,
+    como administrador
+    quiero que a cada vendedor se le aplique su bono
+    en base a las ventas mensuales.
+
+    Scenario: Vendedor supera las 1000 unidades
+        Given un vendedor que vende 5000
+        When supera las 1000
+        Then el vendedor deberia tener un plus de  5000
+
+    Scenario: Vendedor no supera las 1000 unidades
+        Given un vendedor que vende 360
+        When no supera las 1000
+        Then el vendedor deberia tener un plus de  0
+
+                    </code>
+                </pre>
+                </section>
+
+                <section>
+            <pre>
+                <code class="hljs">
+from behave import given, when, then
+
+@given('un vendedor que vende {unidades}')
+def step_ventas_del_vendedor(context, unidades):
+    context.vendedor_ventas = unidades
+
+@when('supera las 1000')
+def step_calculo_porcentaje(context):
+    assert calcula_plus(context.vendedor_ventas) == context.vendedor_ventas
+
+@when('no supera las 1000')
+def step_calculo_porcentaje(context):
+    assert calcula_plus(int(context.vendedor_ventas)) == 0
+
+@then('el vendedor deberia tener un plus de  {euros}')
+def step_el_vendedor_deberia(context, euros):
+    assert context.failed is False
+
+def calcula_plus(ventas):
+    if ventas > 1000:
+        return ventas
+    else:
+        return 0
+                </code>
+            </pre>
+
+                </section>
+
+                <section>
+            <pre>
+                <code>
+> behave
+Feature: Cálculo del incentivo salarial. # features/tutorial.feature:1
+  Para calcular la cuantía del bono salarial,
+  como administrador
+  quiero que a cada vendedor se le aplique su bono
+  en base a las ventas mensuales.
+  Scenario: Vendedor supera las 1000 unidades       # features/tutorial.feature:8
+    Given un vendedor que vende 5000                # features/steps/tutorial.py:4 0.001s
+    When supera las 1000                            # features/steps/tutorial.py:9 0.000s
+    Then el vendedor deberia tener un plus de  5000 # features/steps/tutorial.py:19 0.000s
+
+  Scenario: Vendedor no supera las 1000 unidades  # features/tutorial.feature:13
+    Given un vendedor que vende 360               # features/steps/tutorial.py:4 0.000s
+    When no supera las 1000                       # features/steps/tutorial.py:14 0.000s
+    Then el vendedor deberia tener un plus de  0  # features/steps/tutorial.py:19 0.000s
+
+1 feature passed, 0 failed, 0 skipped
+2 scenarios passed, 0 failed, 0 skipped
+6 steps passed, 0 failed, 0 skipped, 0 undefined
+Took 0m0.002s
+
+                </code>
+            </pre>
+                </section>
+
+
+            </section>
+
+            <section>
+                <p>¿Cuál elegir?</p>
+                <p class="fragment">El que más os guste, solo las pequeñas diferencias y las singularidades de vuetro dominio os
+                hará decidir por uno u otro.</p>
+
+                <a class="fragment" href="https://player.fm/series/test-and-code-83562/pytest-vs-unittest-vs-nose-pt002">test and code podcast</a>
+
+            </section>
+
+            <section>
+
+                <p>unittest</p>
+                <p><img width="500" height="60" src="img/unittest.png"></p>
+                <p>nose</p>
+                <p><img width="500" height="60" src="img/nose.png"></p>
+                <p>pytest</p>
+                <p><img width="500" height="60" src="img/pytest.png"></p>
+
+            </section>
+
+
+            <section>
+                <p>No es oro todo lo que reluce, encontraremos <strong>muchos problemas:</strong></p>
+                <br>
+
+                <ul>
+                    <li class="fragment">Granularidad del testing / valor de negocio</li>
+                    <li class="fragment">Tiempo de escritura</li>
+                    <li class="fragment">Complejidad de la sintaxis</li>
+                    <li class="fragment">Dependencias externas</li>
+                    <li class="fragment">Automatización</li>
+                    <li class="fragment">Ejecución segmentada</li>
+                    <li class="fragment">La elección de herramientas / estilos</li>
+                </ul>
+                <br>
+                <br>
+                <p class="fragment">Si unimos todo eso...</p>
+            </section>
+
+
+            <section>
+                <img src="https://media.giphy.com/media/ENB1fIlVnMRcQ/giphy.gif" width="680" height="655">
+            </section>
+
+
+            <section>
+
+                <section>
+
+                    <p><strong><span
+                            class="fragment highlight-red">TODAS</span></strong> las buenas herramientas han pensado en
+                        algo
+                        para hacer el testeo mucho más
+                        fácil.</p>
+                </section>
+
+                <section>
+                    saltos
+                    <pre class="fragment">
+                    <code>
+   @unittest.skipUnless(sys.platform.startswith("win"), "requires Windows")
+                    </code>
+                </pre>
+                </section>
+
+                <section>
+                    ejecución de segmentos
+
+                    <pre class="fragment">
+                <code>
+       > python unittest_example.py -v MyTest.updateUserMethod
+                </code>
+            </pre>
+
+                </section>
+
+                <section>
+                    <p>preparación</p>
+                    <pre class="fragment">
+                <code>
+                    @classmethod
+                    def setUpClass(cls):
+                        ...
+                </code>
+            </pre>
+
+                    <pre class="fragment">
+                <code>
+                    @classmethod
+                    def tearDownClass(cls):
+                        ...
+                </code>
+            </pre>
+                </section>
+
+                <section>
+
+                    <ul>
+                        <li><p>mockeado de elementos externos</p></li>
+                        <li class="fragment"><p>fixtures</p></li>
+                        <li class="fragment"><p>descubrimiento</p></li>
+                        <li class="fragment"><p>plugins</p></li>
+                        <li class="fragment"> ...</li>
+                    </ul>
+
+                </section>
+
+            </section>
+
+
+            <section>
+                <h4>Python Testing Tools Taxonomy</h4>
+
+                <br>
+                <div>
+                    <small>
+                        <ul>
+                            <li class="fragment">Unit Testing Tools</li>
+                            <li class="fragment">Mock Testing Tools</li>
+                            <li class="fragment"><strong>Fuzz</strong> Testing Tools ("random data")</li>
+                            <li class="fragment">Web Testing Tools</li>
+                            <li class="fragment">Acceptance/Business Logic Testing Tools</li>
+                            <li class="fragment"><strong>GUI</strong> Testing Tools</li>
+                            <li class="fragment"><strong>Source Code Checking Tools</strong> (PyLint)</li>
+                            <li class="fragment"><strong>Code Coverage Tools</strong></li>
+                            <li class="fragment"><strong>Continuous Integration</strong> Tools</li>
+                            <li class="fragment">Automatic Test Runners</li>
+                            <li class="fragment">Test Fixtures</li>
+                            <li class="fragment">Miscellaneous Python Testing Tools</li>
+                        </ul>
+                    </small>
+                </div>
+
+                <br>
+                <br>
+                <a href="https://wiki.python.org/moin/PythonTestingToolsTaxonomy" class="fragment">wiki.python.org/moin/PythonTestingToolsTaxonomy</a>
+
+            </section>
+
+
+            <section>
+                y más y más y más...
+            </section>
+
+
+            <section>
+                <h3>Claves:</h3>
+                <br>
+                <br>
+                <p class="fragment">El primer paso siempre son los <span
+                        class="fragment highlight-blue">test unitarios</span>,</p>
+                <p class="fragment">con la <span class="fragment highlight-blue">librería</span> que más comodo te
+                    sientas
+                </p>
+                <p class="fragment"> y a partir de ahí <span
+                        class="fragment highlight-blue">hasta donde quieras llegar</span></p>
+                <p class="fragment"> pero siempre testea, de una manera u otra y que esto sea parte del proyecto <span
+                        class="fragment highlight-blue">desde su inicio</span></p>
+                <p class="fragment">encontrando el <span class="fragment highlight-blue">equilibrio</span>: no existen
+                    dos
+                    proyectos iguales.</p>
+            </section>
+
+            <section>
+                <p>Unas últimas referencias: </p>
+                <p><img width="180" height="250" src="img/ptc.png"></p>
+                <p class="fragment"><strong>Python Testing Cookbook</strong> - Greg L. Turnquist</p>
+                <small class="fragment">... muchos más en la biblioteca electrónica.</small>
+                <p class="fragment">http://pythontesting.net/ (posts y podcasts)</p>
+            </section>
+
+            <section data-background="https://media.giphy.com/media/dbtDDSvWErdf2/giphy.gif">
+                <h3>Any question?</h3>
+
+                <br>
+                <br>
+
+                <div class="fragment">
+                    <h5>About me:</h5>
+                    <small>
+
+                        <p>twitter: <strong>@sinclair_88</strong></p>
+                        <p>linkedin: juanafernandez</p>
+                        <p>mail: <strong>juan.antonio.fernandez.sanchez.88@gmail.com</strong></p>
+
+                    </small>
+                </div>
+            </section>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'fade', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            {
+                src: 'vendor/reveal-js/lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            }
+            },
+            {
+                src: 'vendor/reveal-js/plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'vendor/reveal-js/plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'vendor/reveal-js/plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            },
+            {src: 'vendor/reveal-js/plugin/zoom-js/zoom.js', async: true},
+            {src: 'vendor/reveal-js/plugin/notes/notes.js', async: true}
+        ]
+    });
+
+</script>
+
+</body>
+</html>
